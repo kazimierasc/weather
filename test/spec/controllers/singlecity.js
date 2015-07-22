@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: SinglecityCtrl', function () {
 
   // load the controller's module
   beforeEach(module('weatherApp'));
 
-  var MainCtrl,
+  var SinglecityCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    SinglecityCtrl = $controller('SinglecityCtrl', {
       $scope: scope
     });
   }));

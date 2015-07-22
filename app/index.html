@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <title>Weather app</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:700,400&amp;subset=latin,latin-ext" rel="stylesheet" type='text/css'>
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -20,7 +22,14 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <h1>Hello weather!</h1>
+    <section class="wrapper" ng-controller="SinglecityCtrl">
+      <h1>{{name}}</h1>
+      <input type="text"/>
+      <p>{{latitude}} {{longitude}}</p>
+      <p>{{key}}</p>
+      <p>Temperature {{temperature}}</p>
+    </section>
+    
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID
@@ -44,12 +53,15 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/singlecity.js"></script>
+        <!--<script src="scripts/services/apikey.js"></script>-->
+        <script src="scripts/services/units.js"></script>
         <!-- endbuild -->
 </body>
 </html>
