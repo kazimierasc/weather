@@ -9,4 +9,4 @@
  * Main module of the application.
  */
 angular
-  .module('weatherApp', ['ngResource']);
+  .module('weatherApp', ['ngResource','ngRoute']);

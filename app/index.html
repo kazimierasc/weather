@@ -22,12 +22,27 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <section class="wrapper" ng-controller="SinglecityCtrl">
-      <h1>{{name}}</h1>
-      <input type="text"/>
-      <p>{{latitude}} {{longitude}}</p>
-      <p>{{key}}</p>
-      <p>Temperature {{temperature}}</p>
+    <section class="wrapper">
+      
+      <section ng-controller="PrefferencesCtrl">
+        <label for="search">Search for a place: </label><input type="text" name="search"/>
+        <p ng-click="setCelsius()">&deg;C</p>
+        <p ng-click="setFarenheit()">&deg;F</p>
+      </section>
+      
+      <section class="weatherData" ng-controller="SinglecityCtrl">
+        <h1 class="mainTitle">Weather in {{name}}</h1>
+        <h2 class="temperature">{{temperature | temperature}} <span class="unit">&deg;{{getUnit()}}</span></h2>
+        <h2 class="locationName">{{name}}</h2>
+        <p class="geekData">Latitude {{latitude}} Longitude {{longitude}}</p>
+        <div class="conditionIcon"></div>
+        
+        <section class="forecasts">
+          <h3>Hourly forecast</h3>
+          <p ng-repeat="item in forecast">{{item.dt_txt}} {{item.main.temp | temperature}}<span class="unit">&deg;{{getUnit()}}</span></p>
+        </section>
+      
+      </section>
     </section>
     
 
@@ -54,14 +69,19 @@
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/singlecity.js"></script>
-        <!--<script src="scripts/services/apikey.js"></script>-->
+        <script src="scripts/services/apikey.js"></script>
         <script src="scripts/services/units.js"></script>
+        <script src="scripts/controllers/prefferences.js"></script>
+        <script src="scripts/services/prefferences.js"></script>
+        <script src="scripts/services/timezoneapikey.js"></script>
+        <script src="scripts/filters/temperature.js"></script>
         <!-- endbuild -->
 </body>
 </html>

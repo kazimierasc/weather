@@ -1,7 +1,30 @@
 html {
   font-family: 'Open Sans', sans-serif;
 }
+h1,h2,h3 {
+  margin:0;
+}
 .wrapper {
   width: 100%;
   margin:0% 5% 0% 5%;
+}
+.mainTitle {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+.temperature {
+  font-size:10em;
+}
+.temperature .unit {
+  font-size:50%;
+  vertical-align: super;
+}
+.conditionIcon {
+	width: 20%;
+	height: 20%;
+	background:blue;
+}
+.geekData {
+	font-size:0.8em;
 }

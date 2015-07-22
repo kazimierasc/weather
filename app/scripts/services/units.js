@@ -8,16 +8,14 @@
  * Service in the weatherApp.
  */
 angular.module('weatherApp')
-  .service('units', function () {
-  	var kToF = function(k) {
-  		return 1.8*(k-273)+32;
+  .service('units', ['$resource','timezoneApiKey',function ($resource,timezoneApiKey) {
+  	var LocationResource = $resource('//api.geonames.org/timezoneJSON?lat=:lat&lng=:lon&username='+timezoneApiKey);
+  	var getTimezone = function(parameters,cb) {
+  		var location = LocationResource.get(parameters, function() {
+  			cb(location);
+  		});
   	};
-  	var kToC = function(k) {
-  		return k-273;
-  	};
-  	
   	return {
-  		kToF:kToF,
-  		kToC:kToC
+  		getTimezone:getTimezone
   	};
-  });
+  }]);

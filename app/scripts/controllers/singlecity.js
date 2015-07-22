@@ -8,18 +8,34 @@
  * Controller of the weatherApp
  */
 angular.module('weatherApp')
-  .controller('SinglecityCtrl', ['$scope','$resource','units',function ($scope,$resource,units) {
+  .controller('SinglecityCtrl', ['$scope','$resource','units','apiKey','prefferences',function ($scope,$resource,units,apiKey,prefferences) {
     $scope.name = 'Vilnius';
     $scope.latitude = '54.41';
     $scope.longitude = '25.17';
     $scope.temperature = 0;
-    var location = {
+    $scope.forecast = [];
+    $scope.getUnit = prefferences.getUnit;
+    var parameters = {
     	lat:$scope.latitude,
-    	lon:$scope.longitude
+    	lon:$scope.longitude,
+    	APPID:apiKey
     };
-    var Weather = $resource('//api.openweathermap.org/data/2.5/weather?lat=:lat&lon=:lon');
-    var weather = Weather.get(location, function() {
-    	$scope.temperature = units.kToC(weather.main.temp);
+
+    var Weather = $resource('//api.openweathermap.org/data/2.5/weather');
+    var weather = Weather.get(parameters, function() {
+    	console.info('Current Info');
+    	console.log(weather);
+    	$scope.temperature = weather.main.temp;
+    });
+
+    var Forecast = $resource('//api.openweathermap.org/data/2.5/forecast');
+    var forecast = Forecast.get(parameters, function() {
+    	console.info('Forecast');
+    	console.log(forecast);
+    	$scope.forecast = forecast.list;
+    });
+    units.getTimezone(parameters,function(data) {
+    	console.log(data);
     });
 
     var options = {
@@ -30,7 +46,8 @@ angular.module('weatherApp')
 
 	function success(pos) {
 	  var crd = pos.coords;
-
+	  $scope.latitude = crd.latitude;
+	  $scope.longitude = crd.longitude;
 	  console.log('Your current position is:');
 	  console.log('Latitude : ' + crd.latitude);
 	  console.log('Longitude: ' + crd.longitude);
@@ -42,4 +59,5 @@ angular.module('weatherApp')
 	}
 
 	navigator.geolocation.getCurrentPosition(success, error, options);
+
   }]);
