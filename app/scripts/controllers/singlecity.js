@@ -13,10 +13,15 @@ angular.module('weatherApp')
     $scope.temperature = 0;
     $scope.forecast = [];
     $scope.getUnit = prefferences.getUnit;
+    $scope.getGeekMode = prefferences.getGeekMode;
     $scope.UTCoffset = 0;
-
     var parameters = {
         APPID:apiKey
+    };
+    $scope.setHome = function() {
+        prefferences.setHome($scope.id);
+        // @TODO Provide visual feedback
+        alert("Home set");
     };
     // Create some useful resources
     var Weather = $resource('//api.openweathermap.org/data/2.5/weather');
@@ -25,20 +30,37 @@ angular.module('weatherApp')
     // Create a function, that will choose a behaviour,
     // depending on the data available
     function init() {
+        // Case if the location name is specified in the URI
         if($routeParams.locationName) {
             $scope.name = $routeParams.locationName;
             nameLoad();
-        } else if($routeParams.lat && $routeParams.lon) {
+        }
+        // Case if there are coordinates specified in the URI 
+        else if($routeParams.lat && $routeParams.lon) {
             $scope.lat = $routeParams.lat;
             $scope.lon = $routeParams.lon;
             coordinatesLoad();
-        } else if($routeParams.id) {
+        }
+        // Case if the city ID from the openweathermap
+        // database is specified in the URI
+        else if($routeParams.id) {
             $scope.id = $routeParams.id;
             idLoad();
-        } else {
+        }
+        // Default case
+        else {
             defaultLoad();
         }
-        getCurrentWeatherData();
+        // Retrieves the current weather data
+        getCurrentWeatherData(function() {
+            // Does some additional lookup of the
+            // timezone offset and assigns them to the model
+            units.getTimezone({lat:$scope.lat, lon:$scope.lon}, function(location) {
+                $scope.timezone = location;
+                $scope.UTCoffset = location.rawOffset;
+            });
+        });
+        // Retrieves the forecast data
         getForecastData();
     }
 
@@ -49,8 +71,8 @@ angular.module('weatherApp')
     }
 
     function coordinatesLoad() {
-        parameters.lat = $scope.latitude;
-        parameters.lon = $scope.longitude;
+        parameters.lat = $scope.lat;
+        parameters.lon = $scope.lon;
     }
 
     function idLoad() {
@@ -58,20 +80,25 @@ angular.module('weatherApp')
     }
 
     function defaultLoad() {
+        //TODO
+        //Basic flow of operations should be
+        //1. Ask for coordinates
+        //2. Populate with home or default home
         var home = prefferences.getHome();
+        console.log('current home',home);
         if(home) {
             parameters.id = home;
         } else {
-            parameters.id = "593116";
+            parameters.id = '593116';
         }
     }
     
-    function getCurrentWeatherData() {
+    function getCurrentWeatherData(cb) {
         var weather = Weather.get(parameters, function() {
             $scope.id = weather.id;
             $scope.temperature = weather.main.temp;
-            $scope.latitude = weather.coord.lat;
-            $scope.longitude = weather.coord.lon;
+            $scope.lat = weather.coord.lat;
+            $scope.lon = weather.coord.lon;
             $scope.name = weather.name;
             $scope.humidity = weather.main.humidity;
             $scope.pressure = weather.main.pressure;
@@ -83,6 +110,7 @@ angular.module('weatherApp')
             $scope.windDegrees = weather.wind.deg;
             $scope.windSpeed = weather.wind.speed;
             $scope.cloudiness = weather.clouds.all;
+            cb();
         });
     }
 
@@ -91,10 +119,6 @@ angular.module('weatherApp')
             $scope.forecast = forecast.list;
         });
     }
-
-    /*units.getTimezone(parameters,function(data) {
-    	console.log(data);
-    });*/
 
     /*
     var options = {

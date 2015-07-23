@@ -13,7 +13,9 @@ angular.module('weatherApp')
   	var prefferences = {};
 
     var defaultPrefferences = {
-      unit : 'C'
+      unit : 'C',
+      geek : false,
+      home : '593116'
     };
   	var setCelsius = function() {
   		prefferences.unit = 'C';
@@ -31,10 +33,25 @@ angular.module('weatherApp')
   		return prefferences.unit;
   	};
     var getHome = function() {
-      return prefferences.home || false;
+      if(prefferences.home) {
+        return prefferences.home;
+      } else {
+        return false;
+      }
     };
     var updateCookie = function() {
       $cookies.putObject(cookieKey,prefferences,{expires:new Date(new Date().getTime()+31536000000)});
+    };
+    var toggleGeekMode = function() {
+      prefferences.geek = !prefferences.geek;
+      updateCookie();
+    };
+    var getGeekMode = function() {
+      if(prefferences.geek) {
+        return prefferences.geek;
+      } else {
+        return false;
+      }
     };
     var existingPrefferences = $cookies.getObject(cookieKey);
 
@@ -52,6 +69,8 @@ angular.module('weatherApp')
   		getUnit:getUnit,
       setHome:setHome,
       getHome:getHome,
+      getGeekMode:getGeekMode,
+      toggleGeekMode:toggleGeekMode,
   		setCelsius:setCelsius,
   		setFarenheit:setFarenheit
   	};
