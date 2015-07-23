@@ -1,23 +1,17 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
+<section class="weatherData" ng-controller="SinglecityCtrl">
+  <h1 class="mainTitle">Weather in {{name}}</h1>
+  <h2 class="temperature">{{temperature | temperature:getUnit()}}</h2>
+  <h2 class="locationName">{{name}}, {{country}} {{id}}</h2>
+  <p>{{description}}</p>
+  <p class="geekData">Latitude {{latitude}} Longitude {{longitude}}</p>
+  <p class="geekData">Humidity {{humidity}}</p>
+  <p class="geekData">Pressure {{pressure}}</p>
+  <p class="geekData">Visibility {{visibility}}<p>
+  <p class="geekData">Wind {{windDegrees}} {{windSpeed}}</p>
+  <p class="geekData">Cloud cover {{cloudiness}}%</p>
+  <div class="conditionIcon"></div>
+  <section class="forecasts">
+    <h3>Hourly forecast</h3>
+    <p ng-repeat="item in forecast">{{item.dt_txt}} {{item.main.temp | temperature:getUnit()}} {{item.weather[0].description}}</p>
+  </section>
+</section>

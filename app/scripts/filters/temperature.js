@@ -9,15 +9,14 @@
  * Filter in the weatherApp.
  */
 angular.module('weatherApp')
-  .filter('temperature', ['prefferences',function (prefferences) {
-    return function (k) {
-    	var unit = prefferences.getUnit();
+  .filter('temperature', function () {
+    return function (k,unit) {
     	if(unit == 'F') {
-    		return Math.round(1.8*(k-273)+32);
+    		return Math.round(1.8*(k-273)+32) + '°' + unit;
     	} else if(unit == 'C') {
-    		return Math.round(k-273);
+    		return Math.round(k-273) + '°' + unit;
     	} else {
-    		return Math.round(k);
+    		return Math.round(k) + 'K';
     	}
     };
-  }]);
+  });

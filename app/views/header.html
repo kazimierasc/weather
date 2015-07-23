@@ -1,0 +1,14 @@
+<section class="header">
+	<section ng-controller="SearchCtrl">
+	  <form ng-submit="performSearch()">
+	    <label for="search">Search for a place: </label>
+	    <input type="text" name="search" ng-model="keyword"/>
+	    <input type="submit" value="Search"/>
+	  </form>
+	</section>
+
+	<section ng-controller="PrefferencesCtrl">
+	  <p ng-click="setCelsius()">&deg;C</p>
+	  <p ng-click="setFarenheit()">&deg;F</p>
+	</section>
+</section>
