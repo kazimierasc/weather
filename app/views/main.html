@@ -1,22 +1,50 @@
 <section class="weatherData" ng-controller="SinglecityCtrl">
   <h1 class="mainTitle">Weather in {{name}}</h1>
-  <img class="situationIcon" ng-src="images/icons/{{icon}}.png" alt="{{word}}"/>
-  <p>{{description | titlecaps}}</p>
-  <h2 class="temperature">{{temperature | temperature:getUnit()}}</h2>
+  
+  <div class="situation">
+    <img class="situationIcon" ng-src="images/icons/{{icon}}.png" alt="{{word}}"/>
+    <p>{{description | titlecaps}}</p>
+  </div>
+
+  <div class="numerics">
+    <h2 class="temperature">{{temperature | temperature:getUnit()}}</h2>
+    <p class="geekData" ng-show="getGeekMode()">
+      <span ng-show="lat">Latitude&nbsp;{{lat}}</span>
+      <span ng-show="lon"> Longitude&nbsp;{{lon}}</span>
+      <!-- Could add time data for the location here -->
+      <span ng-show="humidity"> Humidity&nbsp;{{humidity}}%</span>
+      <span ng-show="pressure"> Pressure&nbsp;{{pressure}}&nbsp;hPA</span>
+      <span ng-show="visibility">  Visibility&nbsp;{{visibility}}&nbsp;m</span>
+    </p>
+  </div>
+  
   <h2 class="locationName" ng-click="setHome()">{{name}}, {{country}}</h2>
   
   <section class="geekStuff">
-    <p class="geekData" ng-show="getGeekMode()">Latitude {{lat}} Longitude {{lon}}</p>
-    <p class="geekData" ng-show="getGeekMode()">Humidity {{humidity}}%</p>
-    <p class="geekData" ng-show="getGeekMode()">Pressure {{pressure}} hPA</p>
-    <p class="geekData" ng-show="getGeekMode()">Visibility {{visibility}} m</p>
-    <p class="geekData" ng-show="getGeekMode()">Wind {{windDegrees}} {{windSpeed}} <winddirection wind-direction="45"></winddirection></p>
-    <p class="geekData" ng-show="getGeekMode()">Cloud cover {{cloudiness}}% <cloudcover percentage="45"></cloudcover></p>
+    <p class="geekData" ng-show="getGeekMode()">
+      Wind&nbsp;{{windDegrees}}&deg;&nbsp;{{windSpeed}}m/s
+      <winddirection wind-direction="{{windDegrees}}"></winddirection>
+    </p>
+    
+    <p class="geekData" ng-show="getGeekMode()">
+      Cloud&nbsp;cover&nbsp;{{cloudiness}}%
+      <cloudcover percentage="{{cloudiness}}"></cloudcover>
+    </p>
   </section>
   
   <section class="forecasts">
     <h3>Hourly forecast</h3>
-    <p ng-repeat="item in forecast">{{item.dt | time:UTCoffset}} {{item.main.temp | temperature:getUnit()}} {{item.weather[0].description}}</p>
+    <table>
+      <tbody>
+        <tr ng-repeat="item in forecast">
+          <td>{{item.dt | time:UTCoffset | forecastDay}}</td>
+          <td>{{item.dt | time:UTCoffset | forecastHours}}</td>
+          <td>{{item.main.temp | temperature:getUnit()}}</td>
+          <td class="situationDescriptionCell">{{item.weather[0].description | titlecaps}}</td>
+          <td class="situationIconCell"><img class="situationIcon" ng-src="images/icons/{{item.weather[0].icon}}.png" alt="{{word}}"/></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
 </section>

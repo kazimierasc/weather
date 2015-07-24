@@ -117,6 +117,7 @@ angular.module('weatherApp')
     function getForecastData() {
         var forecast = Forecast.get(parameters, function() {
             $scope.forecast = forecast.list;
+            console.log(forecast.list);
         });
     }
 

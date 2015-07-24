@@ -44,8 +44,6 @@ None available as of this moment.
 
 ### Comming up:
 
-1. A basic design
-
 1. Basic error popups
 
 1. Add cities to favorites list, show favorites list
@@ -55,5 +53,3 @@ None available as of this moment.
 1. Graphs (cause graphs are great and can be made with d3)
 
 1. A good design
-
-1. Fix bug with canvas
