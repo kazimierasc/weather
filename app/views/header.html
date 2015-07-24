@@ -1,15 +1,21 @@
-<section class="header">
-	<section ng-controller="SearchCtrl">
+<section class="header" ng-controller="HeaderCtrl">
+	<section class="alwaysVisible">
+		<h1 id="mainTitle">Weather</h1>
+		<input id="hamburger" class="headerButton" type="button" ng-click="toggleMenu()" value="Options"/>
+	</section>
+	<section ng-controller="SearchCtrl" ng-show="visibility">
 	  <form ng-submit="performSearch()">
 	    <label for="search">Search for a place: </label>
-	    <input type="text" name="search" ng-model="keyword"/>
-	    <input type="submit" value="Search"/>
+	    <input type="text" name="search" ng-model="keyword" placeholder="London, GB"/>
+	    <input type="submit" class="headerButton" value="Search"/>
 	  </form>
 	</section>
 
-	<section ng-controller="PrefferencesCtrl">
-	  <p ng-click="setCelsius()">&deg;C</p>
-	  <p ng-click="setFarenheit()">&deg;F</p>
-	  <p ng-click="toggleGeekMode()">Geek mode</p>
+	<section ng-controller="PrefferencesCtrl" class="prefferencesSection" ng-show="visibility">
+	  <h3 class="clear prefferenceTitle">What makes sense?</h3>
+	  <input ng-click="setCelsius()"  type="button" class="headerButton" value="&deg;C"/>
+	  <input ng-click="setFarenheit()" type="button" class="headerButton" value="&deg;F"/>
+	  <h3 class="clear prefferenceTitle">Want to geek out?</h3>
+	  <input ng-click="toggleGeekMode()" type="button" class="headerButton" value="Geek mode"/>
 	</section>
 </section>

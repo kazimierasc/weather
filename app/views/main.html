@@ -1,21 +1,22 @@
 <section class="weatherData" ng-controller="SinglecityCtrl">
   <h1 class="mainTitle">Weather in {{name}}</h1>
+  <img class="situationIcon" ng-src="images/icons/{{icon}}.png" alt="{{word}}"/>
+  <p>{{description | titlecaps}}</p>
   <h2 class="temperature">{{temperature | temperature:getUnit()}}</h2>
-  <h2 class="locationName">{{name}}, {{country}} {{UTCoffset}}</h2>
-  <p ng-click="setHome()">Set as home</p>
-  <p>{{description}}</p>
-  <p class="geekData" ng-show="getGeekMode()">Latitude {{lat}} Longitude {{lon}}</p>
-  <p class="geekData" ng-show="getGeekMode()">Humidity {{humidity}}</p>
-  <p class="geekData" ng-show="getGeekMode()">Pressure {{pressure}}</p>
-  <p class="geekData" ng-show="getGeekMode()">Visibility {{visibility}}<p>
-  <p class="geekData" ng-show="getGeekMode()">Wind {{windDegrees}} {{windSpeed}}</p>
-  <p class="geekData" ng-show="getGeekMode()">Pressure {{pressure}}</p>
-  <p class="geekData" ng-show="getGeekMode()">Visibility {{visibility}}<p>
-  <p class="geekData" ng-show="getGeekMode()">Wind {{windDegrees}} {{windSpeed}} <winddirection></winddirection></p>
-  <p class="geekData" ng-show="getGeekMode()">Cloud cover {{cloudiness}}% <cloudcover></cloudcover></p>
-  <div class="conditionIcon"></div>
+  <h2 class="locationName" ng-click="setHome()">{{name}}, {{country}}</h2>
+  
+  <section class="geekStuff">
+    <p class="geekData" ng-show="getGeekMode()">Latitude {{lat}} Longitude {{lon}}</p>
+    <p class="geekData" ng-show="getGeekMode()">Humidity {{humidity}}%</p>
+    <p class="geekData" ng-show="getGeekMode()">Pressure {{pressure}} hPA</p>
+    <p class="geekData" ng-show="getGeekMode()">Visibility {{visibility}} m</p>
+    <p class="geekData" ng-show="getGeekMode()">Wind {{windDegrees}} {{windSpeed}} <winddirection wind-direction="45"></winddirection></p>
+    <p class="geekData" ng-show="getGeekMode()">Cloud cover {{cloudiness}}% <cloudcover percentage="45"></cloudcover></p>
+  </section>
+  
   <section class="forecasts">
     <h3>Hourly forecast</h3>
     <p ng-repeat="item in forecast">{{item.dt | time:UTCoffset}} {{item.main.temp | temperature:getUnit()}} {{item.weather[0].description}}</p>
   </section>
+
 </section>

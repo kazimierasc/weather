@@ -55,3 +55,5 @@ None available as of this moment.
 1. Graphs (cause graphs are great and can be made with d3)
 
 1. A good design
+
+1. Fix bug with canvas
