@@ -92,7 +92,9 @@ angular.module('weatherApp')
             parameters.id = '593116';
         }
     }
-    
+
+    // Retrieves the current weather data 
+    // and populates the scope with it
     function getCurrentWeatherData(cb) {
         var weather = Weather.get(parameters, function() {
             $scope.id = weather.id;
@@ -113,11 +115,12 @@ angular.module('weatherApp')
             cb();
         });
     }
-
+    
+    // Retrieves the weather forecast data
+    // and adds it to the scope
     function getForecastData() {
         var forecast = Forecast.get(parameters, function() {
             $scope.forecast = forecast.list;
-            console.log(forecast.list);
         });
     }
 
