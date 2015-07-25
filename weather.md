@@ -44,8 +44,6 @@ None available as of this moment.
 
 ### Comming up:
 
-1. Add cities to favorites list, show favorites list
-
 1. Additional forecast options
 
 1. Graphs (cause graphs are great and can be made with d3)

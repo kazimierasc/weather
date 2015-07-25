@@ -27,7 +27,6 @@ angular.module('weatherApp')
     };
     $scope.displayStarredList = function() {
         if(Object.keys($scope.starred()).length > 0) {
-            console.log('yes')
             return true;
         } else {
             return false;

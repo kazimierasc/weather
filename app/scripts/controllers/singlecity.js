@@ -54,7 +54,7 @@ angular.module('weatherApp')
             units.getTimezone({lat:$scope.lat, lon:$scope.lon}, function(location) {
                 $scope.timezone = location;
                 $scope.UTCoffset = location.rawOffset;
-            });
+            },dataRetrievalError);
         });
         // Retrieves the forecast data
         getForecastData();
@@ -86,6 +86,17 @@ angular.module('weatherApp')
         }
     }
 
+    function dataRetrievalError() {
+        /*var close = function() {
+            notice.close();
+        };*/
+        notice.title = 'Ooops ...';
+        notice.description = 'It appears that we have no idea what the weather is. We\'ll try to figure it out, come back to us later!';
+        notice.actions = [];
+        //notice.actions = [{name:'Shame',action:close}];
+        notice.visible = true;
+    }
+
     // Retrieves the current weather data 
     // and populates the scope with it
     function getCurrentWeatherData(cb) {
@@ -106,7 +117,7 @@ angular.module('weatherApp')
             $scope.windSpeed = weather.wind.speed;
             $scope.cloudiness = weather.clouds.all;
             cb();
-        });
+        },dataRetrievalError);
     }
     
     // Retrieves the weather forecast data
@@ -114,7 +125,7 @@ angular.module('weatherApp')
     function getForecastData() {
         var forecast = Forecast.get(requestprocessor.parameters, function() {
             $scope.forecast = forecast.list;
-        });
+        },dataRetrievalError);
     }
 
     // Does everything

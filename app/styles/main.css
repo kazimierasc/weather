@@ -1,6 +1,6 @@
 html {
   font-family: 'Open Sans', sans-serif;
-  color:#A4A2C7;
+  color:rgb(54,54,54);
 }
 h1,h2,h3 {
   margin:0;
@@ -27,28 +27,31 @@ h1,h2,h3 {
   height:100%;
   top:0;
   left:0;
-  background:rgba(0,0,0,0.7);
+  background:rgba(0,0,0,0.8);
   z-index: 1000;
-  color:white;
+  color:rgb(220,220,205);
   text-align: center;
   padding-top:30%;
+}
+.notice p {
+  padding:0 5% 0 5%;
 }
 .notice input[type="button"] {
   background:none;
   outline:none;
-  border: 2px white solid;
+  border: 2px rgb(131,191,23) solid;
   padding:7px 0px 7px 0px;
   margin-top:20px;
   min-width:50%;
 }
 .notice input[type="button"]:hover {
-  background:white;
-  color:black;
+  background:rgb(131,191,23);
+  color:rgb(220,220,205);
 }
 /* Header Styles */
 .header {
   color:white;
-  background:#A4A2C7;
+  background:rgb(241,93,88);
   overflow: auto;
   padding:2%;
 }
@@ -60,7 +63,7 @@ h1,h2,h3 {
 }
 .header .headerButton:hover,.header .locationButton:hover {
   background:white;
-  color:#A4A2C7;
+  color:rgb(241,93,88);
   cursor: pointer;
 }
 .header .locationButton {
@@ -93,14 +96,11 @@ h1,h2,h3 {
 }
 .header input[type="text"] {
   margin:10px 0px 10px 0px;
-  border-top:none;
-  border-right:none;
-  border-bottom:2px solid white;
-  border-left:none;
+  border:none;
   outline:none;
   width:96%;
   font-size:1.2em;
-  color:#000000;
+  color:rgb(54,54,54);
   padding:1% 2% 1% 2%;
 }
 .header input[type="submit"] {
@@ -111,7 +111,7 @@ h1,h2,h3 {
   top:20%;
   right:0;
   width:50%;
-  z-index: 1000;
+  z-index: 999;
   margin-right:-35%;
 }
 .starredList.expanded {
@@ -120,11 +120,11 @@ h1,h2,h3 {
 .starredList img {
   width:30%;
   float:left;
-  background:rgba(164,162,199,0.8);
+  background:rgba(166,143,88,0.8);
 }
 .starredList img:hover {
   cursor:pointer;
-  background:rgba(164,162,199,0.95);
+  background:rgba(166,143,88,0.95);
 }
 .starredList .starredItem {
   float:right;
@@ -134,11 +134,11 @@ h1,h2,h3 {
   padding-top:10px;
   padding-bottom:10px;
   margin:0;
-  background:rgba(164,162,199,0.8);
+  background:rgba(166,143,88,0.8);
 }
 .starredList .starredItem:hover {
   cursor:pointer;
-  background:rgba(164,162,199,0.95);
+  background:rgba(166,143,88,0.95);
 }
 /* Weather Data Styles */
 .weatherData {
@@ -167,14 +167,14 @@ h1,h2,h3 {
 }
 .cityButton {
   background:none;
-  border:2px solid rgb(164,162,199);
+  border:2px solid rgb(131,191,23);
   outline:none;
   padding:7px 20px 7px 20px;
   font-size:0.6em;
   font-weight:400;
 }
 .cityButton:hover {
-  background:rgb(164,162,199);
+  background:rgb(131,191,23);
   color:white;
 }
 .geekData {
@@ -191,6 +191,17 @@ h1,h2,h3 {
 }
 .forecasts {
   clear:both;
+}
+.forecasts h3 {
+  /*border-bottom:2px solid rgb(164,162,199);
+  width:80%;*/
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:20px;
+  margin-bottom:10px;
+  background:rgb(131,191,23);
+  color:white;
+  padding:10px;
 }
 .forecasts table {
   width:86%;
@@ -223,6 +234,10 @@ h1,h2,h3 {
   }
   .header .locationButton #verbalContent {
     display:inline;
+  }
+  .header input[type="submit"] {
+    width:30%;
+    margin-left:35%;
   }
   .starredList {
     width:20%;
