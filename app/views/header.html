@@ -12,11 +12,18 @@
 	  </form>
 	</section>
 
-	<section ng-controller="PrefferencesCtrl" class="prefferencesSection" ng-show="visibility">
-	  <h3 class="clear prefferenceTitle">What makes sense?</h3>
-	  <input ng-click="setCelsius()"  type="button" class="headerButton" value="&deg;C"/>
-	  <input ng-click="setFarenheit()" type="button" class="headerButton" value="&deg;F"/>
-	  <h3 class="clear prefferenceTitle">Want to geek out?</h3>
-	  <input ng-click="toggleGeekMode()" type="button" class="headerButton" value="Geek mode"/>
+	<section ng-controller="PrefferencesCtrl">
+	  <section class="prefferencesSection" ng-show="visibility">
+		  <h3 class="clear prefferenceTitle">What makes sense?</h3>
+		  <input ng-click="setCelsius()"  type="button" class="headerButton" value="&deg;C"/>
+		  <input ng-click="setFarenheit()" type="button" class="headerButton" value="&deg;F"/>
+		  <h3 class="clear prefferenceTitle">Want to geek out?</h3>
+		  <input ng-click="toggleGeekMode()" type="button" class="headerButton" value="Geek mode"/>
+	  </section>
+	  <div class="starredList" ng-class="starredListStatus">
+	  	<img src="images/star.svg" ng-click="toggleStarredList()";/>
+	  	<p ng-repeat="location in starred()" class="starredItem"><span ng-click="goToId(location.id)">{{location.name}},{{location.country}}</span></p>
+	  	<div style="clear:both"></div>
+	  </div>
 	</section>
 </section>

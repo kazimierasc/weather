@@ -24,7 +24,7 @@ angular.module('weatherApp')
         }
     };
     $scope.toggleFavoriteState = function() {
-        prefferences.toggleFavoriteState($scope.id);
+        prefferences.toggleFavoriteState($scope.id,$scope.name,$scope.country);
     };
 
     $scope.setHome = function() {
@@ -76,8 +76,10 @@ angular.module('weatherApp')
         }
         // Case if the city ID from the openweathermap
         // database is specified in the URI
-        else if($routeParams.id) {
-            $scope.id = $routeParams.id;
+        else if($routeParams.locationId) {
+            console.log("Went to ID");
+            $scope.id = $routeParams.locationId;
+            console.log($scope.id, "is the id");
             requestprocessor.idLoad($scope.id,proceed);
         }
         // Default case

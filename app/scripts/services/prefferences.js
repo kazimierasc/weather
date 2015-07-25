@@ -54,11 +54,14 @@ angular.module('weatherApp')
         return false;
       }
     };
+    var getStarred = function() {
+      return prefferences.starred;
+    };
     var toggleFavoriteState = function(id,name,country) {
       if(prefferences.starred[id]) {
         delete prefferences.starred[id];
       } else {
-        prefferences.starred[id] = {name:name,country:country};
+        prefferences.starred[id] = {name:name,country:country,id:id};
       }
       updateCookie();
     };
@@ -76,7 +79,6 @@ angular.module('weatherApp')
     }
     prefferences = defaultPrefferences;
 
-
   	return {
   		getUnit:getUnit,
       setHome:setHome,
@@ -86,6 +88,7 @@ angular.module('weatherApp')
   		setCelsius:setCelsius,
   		setFarenheit:setFarenheit,
       toggleFavoriteState:toggleFavoriteState,
-      isFavorite:isFavorite
+      isFavorite:isFavorite,
+      getStarred:getStarred
   	};
   }]);

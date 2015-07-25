@@ -90,6 +90,38 @@ h1,h2,h3 {
 .header input[type="submit"] {
   width:100%;
 }
+.starredList {
+  position:fixed;
+  top:20%;
+  right:0;
+  width:50%;
+  z-index: 1000;
+  margin-right:-35%;
+}
+.starredList.expanded {
+  margin-right:0;
+}
+.starredList img {
+  width:30%;
+  float:left;
+  background:rgba(0,0,0,0.4);
+}
+.starredList img:hover {
+  cursor:pointer;
+}
+.starredList .starredItem {
+  float:right;
+  width:65%;
+  text-align:center;
+  padding-right:5%;
+  padding-top:10px;
+  padding-bottom:10px;
+  margin:0;
+  background:rgba(0,0,0,0.4);
+}
+.starredList .starredItem:hover {
+  cursor:pointer;
+}
 /* Weather Data Styles */
 .weatherData {
   width:100%;
