@@ -24,7 +24,7 @@
 		  <h3 class="clear prefferenceTitle">Want to geek out?</h3>
 		  <input ng-click="toggleGeekMode()" type="button" class="headerButton" value="Geek mode"/>
 	  </section>
-	  <div class="starredList" ng-class="starredListStatus">
+	  <div class="starredList" ng-class="starredListStatus" ng-show="displayStarredList()">
 	  	<img alt="Starred locations" src="images/star.svg" ng-click="toggleStarredList()";/>
 	  	<div ng-repeat="location in starred()">
 	  	<p class="starredItem" ng-click="goToId(location.id)">{{location.name}},{{location.country}}</p>

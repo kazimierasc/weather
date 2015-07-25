@@ -165,6 +165,18 @@ h1,h2,h3 {
 	height: 200px;
 	background:blue;
 }
+.cityButton {
+  background:none;
+  border:2px solid rgb(164,162,199);
+  outline:none;
+  padding:7px 20px 7px 20px;
+  font-size:0.6em;
+  font-weight:400;
+}
+.cityButton:hover {
+  background:rgb(164,162,199);
+  color:white;
+}
 .geekData {
 	font-size:0.8em;
 }

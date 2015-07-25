@@ -11,6 +11,6 @@
 angular.module('weatherApp')
   .filter('forecastHours', function () {
     return function (input) {
-    	return (input.getHours()+1)+":00";
+    	return (input.getHours()+1)+':00';
     };
   });

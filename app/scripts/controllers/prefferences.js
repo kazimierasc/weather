@@ -16,13 +16,21 @@ angular.module('weatherApp')
     $scope.goToId = function(id) {
         $scope.toggleStarredList();
     	$location.path('/id/'+id);
-    }
+    };
     $scope.starredListStatus = 'contracted';
     $scope.toggleStarredList = function() {
-    	if($scope.starredListStatus == 'expanded') {
+    	if($scope.starredListStatus === 'expanded') {
     		$scope.starredListStatus = 'contracted';
     	} else {
     		$scope.starredListStatus = 'expanded';
     	}
-    }
+    };
+    $scope.displayStarredList = function() {
+        if(Object.keys($scope.starred()).length > 0) {
+            console.log('yes')
+            return true;
+        } else {
+            return false;
+        }
+    };
   }]);

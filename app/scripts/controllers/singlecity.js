@@ -77,9 +77,7 @@ angular.module('weatherApp')
         // Case if the city ID from the openweathermap
         // database is specified in the URI
         else if($routeParams.locationId) {
-            console.log("Went to ID");
             $scope.id = $routeParams.locationId;
-            console.log($scope.id, "is the id");
             requestprocessor.idLoad($scope.id,proceed);
         }
         // Default case
