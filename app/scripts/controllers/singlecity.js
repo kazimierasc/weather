@@ -26,39 +26,19 @@ angular.module('weatherApp')
         var no = function() {
             notice.close();
         };
-        notice.title = "Do you want to set "+$scope.name+" as the default location?";
-        notice.description = "This means that whenever you load this page "+$scope.name+" will be the one you see.";
-        notice.actions = [{name:"Yes",action:yes},{name:"No",action:no}];
+        notice.title = 'Do you want to set '+$scope.name+' as the default location?';
+        notice.description = 'This means that whenever you load this page '+$scope.name+' will be the one you see.';
+        notice.actions = [{name:'Yes',action:yes},{name:'No',action:no}];
         notice.visible = true;
     };
     // Create some useful resources
     var Weather = $resource('//api.openweathermap.org/data/2.5/weather');
     var Forecast = $resource('//api.openweathermap.org/data/2.5/forecast');
     
-    // Create a function, that will choose a behaviour,
-    // depending on the data available
-    function init() {
-        // Case if the location name is specified in the URI
-        if($routeParams.locationName) {
-            $scope.name = $routeParams.locationName;
-            nameLoad();
-        }
-        // Case if there are coordinates specified in the URI 
-        else if($routeParams.lat && $routeParams.lon) {
-            $scope.lat = $routeParams.lat;
-            $scope.lon = $routeParams.lon;
-            coordinatesLoad();
-        }
-        // Case if the city ID from the openweathermap
-        // database is specified in the URI
-        else if($routeParams.id) {
-            $scope.id = $routeParams.id;
-            idLoad();
-        }
-        // Default case
-        else {
-            defaultLoad();
-        }
+
+    // The function serves as a callback for conditional
+    // processors (like the nameLoad, defaultLoad etc.)
+    function proceed() {
         // Retrieves the current weather data
         getCurrentWeatherData(function() {
             // Does some additional lookup of the
@@ -72,38 +52,87 @@ angular.module('weatherApp')
         getForecastData();
     }
 
+    // Create a function, that will choose a behaviour,
+    // depending on the data available
+    function init() {
+        // Case if the location name is specified in the URI
+        if($routeParams.locationName) {
+            $scope.name = $routeParams.locationName;
+            nameLoad(proceed);
+        }
+        // Case if there are coordinates specified in the URI 
+        else if($routeParams.lat && $routeParams.lon) {
+            $scope.lat = $routeParams.lat;
+            $scope.lon = $routeParams.lon;
+            coordinatesLoad(proceed);
+        }
+        // Case if the city ID from the openweathermap
+        // database is specified in the URI
+        else if($routeParams.id) {
+            $scope.id = $routeParams.id;
+            idLoad(proceed);
+        }
+        // Default case
+        else {
+            defaultLoad(proceed);
+        }
+    }
+
     // Create functions that customize API call
     // parameters depending on available data
-    function nameLoad() {
+    function nameLoad(cb) {
         parameters.q = $scope.name;
+        cb();
     }
 
-    function coordinatesLoad() {
+    function coordinatesLoad(cb) {
         parameters.lat = $scope.lat;
         parameters.lon = $scope.lon;
+        cb();
     }
 
-    function idLoad() {
+    function idLoad(cb) {
         parameters.id = $scope.id;
+        cb();
     }
 
-    function defaultLoad() {
-        //TODO
-        //Basic flow of operations should be
-        //1. Ask for coordinates
-        //2. Populate with home or default home
+    function deviceLocationLoad(cb) {
+        console.log('called device location load');
+        function success(pos) {
+          var crd = pos.coords;
+          delete parameters.q;
+          delete parameters.id;
+          parameters.lat = crd.latitude;
+          parameters.lon = crd.longitude;
+          cb();
+        }
+        function error(err) {
+          console.warn('ERROR(' + err.code + '): ' + err.message);
+        }
+        var options = {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        };
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    }
+
+    function defaultLoad(cb) {
         var home = prefferences.getHome();
-        console.log('current home',home);
         if(home) {
             parameters.id = home;
+            return cb();
         } else {
+            deviceLocationLoad(cb);
             parameters.id = '593116';
+            return cb();
         }
     }
 
     // Retrieves the current weather data 
     // and populates the scope with it
     function getCurrentWeatherData(cb) {
+        console.log(parameters);
         var weather = Weather.get(parameters, function() {
             $scope.id = weather.id;
             $scope.temperature = weather.main.temp;
@@ -131,28 +160,5 @@ angular.module('weatherApp')
             $scope.forecast = forecast.list;
         });
     }
-
-    /*
-    var options = {
-	  enableHighAccuracy: true,
-	  timeout: 5000,
-	  maximumAge: 0
-	};
-
-	function success(pos) {
-	  var crd = pos.coords;
-	  $scope.latitude = crd.latitude;
-	  $scope.longitude = crd.longitude;
-	  console.log('Your current position is:');
-	  console.log('Latitude : ' + crd.latitude);
-	  console.log('Longitude: ' + crd.longitude);
-	  console.log('More or less ' + crd.accuracy + ' meters.');
-	}
-
-	function error(err) {
-	  console.warn('ERROR(' + err.code + '): ' + err.message);
-	}
-
-	navigator.geolocation.getCurrentPosition(success, error, options);*/
     init();
   }]);

@@ -15,7 +15,7 @@ angular.module('weatherApp')
     var defaultPrefferences = {
       unit : 'C',
       geek : false,
-      home : '593116'
+      home : false
     };
   	var setCelsius = function() {
   		prefferences.unit = 'C';

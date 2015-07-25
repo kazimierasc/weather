@@ -44,8 +44,6 @@ None available as of this moment.
 
 ### Comming up:
 
-1. Basic error popups
-
 1. Add cities to favorites list, show favorites list
 
 1. Additional forecast options

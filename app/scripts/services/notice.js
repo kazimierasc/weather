@@ -9,13 +9,13 @@
  */
 angular.module('weatherApp')
   .factory('notice', function () {
-  	var self = {};
-  	self.visible = false;
-	self.title = '';
-	self.description = '';
-	self.actions = [];
-	self.close = function() {
-		self.visible = false;
+  	var notice = {};
+  	notice.visible = false;
+	notice.title = '';
+	notice.description = '';
+	notice.actions = [];
+	notice.close = function() {
+		notice.visible = false;
 	};
-  	return self;
+  	return notice;
   });
