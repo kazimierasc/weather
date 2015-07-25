@@ -58,6 +58,21 @@ h1,h2,h3 {
   border:2px solid white;
   background:none;
 }
+.header .headerButton:hover,.header .locationButton:hover {
+  background:white;
+  color:#A4A2C7;
+}
+.header .locationButton {
+  padding:7px 20px 7px 20px;
+  outline: none;
+  border:2px solid white;
+  background:none;
+  float:right;
+  margin-right:10px;
+}
+.header .locationButton #verbalContent {
+  display:none;
+}
 .header .alwaysVisible {
   height:50px;
   clear:both;
@@ -108,6 +123,7 @@ h1,h2,h3 {
 }
 .starredList img:hover {
   cursor:pointer;
+  background:rgba(0,0,0,0.8);
 }
 .starredList .starredItem {
   float:right;
@@ -121,6 +137,7 @@ h1,h2,h3 {
 }
 .starredList .starredItem:hover {
   cursor:pointer;
+  background:rgba(0,0,0,0.8);
 }
 /* Weather Data Styles */
 .weatherData {
@@ -185,6 +202,9 @@ h1,h2,h3 {
 }
 
 @media (min-width:501px) {
+  .header .locationButton #verbalContent {
+    display:inline;
+  }
   .notice {
     padding-top:15%;
   }

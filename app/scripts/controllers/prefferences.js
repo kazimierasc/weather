@@ -14,6 +14,7 @@ angular.module('weatherApp')
     $scope.toggleGeekMode = prefferences.toggleGeekMode;
     $scope.starred = prefferences.getStarred;
     $scope.goToId = function(id) {
+        $scope.toggleStarredList();
     	$location.path('/id/'+id);
     }
     $scope.starredListStatus = 'contracted';

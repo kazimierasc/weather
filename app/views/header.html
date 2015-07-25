@@ -1,8 +1,12 @@
 <section class="header" ng-controller="HeaderCtrl">
 	<section class="alwaysVisible">
 		<h1 id="mainTitle">Weather</h1>
-		<input class="headerButton" type="button" ng-click="coordinatesSeek()" value="Weather for my location"/>
+		
 		<input id="hamburger" class="headerButton" type="button" ng-click="toggleMenu()" value="Options"/>
+		<div class="locationButton" ng-click="coordinatesSeek()">
+			<span id="symbolContent">&#10138; </span>
+			<span id="verbalContent">My location</span>
+		</div>
 	</section>
 	<section ng-controller="SearchCtrl" ng-show="visibility">
 	  <form ng-submit="performSearch()">
@@ -21,7 +25,7 @@
 		  <input ng-click="toggleGeekMode()" type="button" class="headerButton" value="Geek mode"/>
 	  </section>
 	  <div class="starredList" ng-class="starredListStatus">
-	  	<img src="images/star.svg" ng-click="toggleStarredList()";/>
+	  	<img alt="Starred locations" src="images/star.svg" ng-click="toggleStarredList()";/>
 	  	<p ng-repeat="location in starred()" class="starredItem"><span ng-click="goToId(location.id)">{{location.name}},{{location.country}}</span></p>
 	  	<div style="clear:both"></div>
 	  </div>
