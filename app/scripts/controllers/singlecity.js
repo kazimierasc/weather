@@ -8,7 +8,7 @@
  * Controller of the weatherApp
  */
 angular.module('weatherApp')
-  .controller('SinglecityCtrl', ['$scope','$resource','units','apiKey','prefferences','$routeParams',function ($scope,$resource,units,apiKey,prefferences,$routeParams) {
+  .controller('SinglecityCtrl', ['$scope','$resource','units','apiKey','prefferences','$routeParams','notice',function ($scope,$resource,units,apiKey,prefferences,$routeParams,notice) {
     // Set some basic defaults
     $scope.temperature = 0;
     $scope.forecast = [];
@@ -19,9 +19,17 @@ angular.module('weatherApp')
         APPID:apiKey
     };
     $scope.setHome = function() {
-        prefferences.setHome($scope.id);
-        // @TODO Provide visual feedback
-        alert("Home set");
+        var yes = function() {
+            prefferences.setHome($scope.id);
+            notice.close();
+        };
+        var no = function() {
+            notice.close();
+        };
+        notice.title = "Do you want to set "+$scope.name+" as the default location?";
+        notice.description = "This means that whenever you load this page "+$scope.name+" will be the one you see.";
+        notice.actions = [{name:"Yes",action:yes},{name:"No",action:no}];
+        notice.visible = true;
     };
     // Create some useful resources
     var Weather = $resource('//api.openweathermap.org/data/2.5/weather');

@@ -22,6 +22,13 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <div ng-controller="NoticeCtrl">
+        <section class="notice" ng-show="visible">
+          <h1>{{title}}</h1>
+          <p>{{description}}</p>
+          <div ng-repeat="action in actions"><input type="button" value="{{action.name}}" ng-click="action.action()"/></div>
+        </section>
+    </div>
     <section class="wrapper">
       <ng-include src="'views/header.html'"></ng-include>
       <section class="mainView" ng-view></section>
@@ -73,6 +80,8 @@
         <script src="scripts/filters/titlecaps.js"></script>
         <script src="scripts/filters/forecasthours.js"></script>
         <script src="scripts/filters/forecastday.js"></script>
+        <script src="scripts/controllers/notice.js"></script>
+        <script src="scripts/services/notice.js"></script>
         <!-- endbuild -->
 </body>
 </html>

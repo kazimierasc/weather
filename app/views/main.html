@@ -21,15 +21,14 @@
   <h2 class="locationName" ng-click="setHome()">{{name}}, {{country}}</h2>
   
   <section class="geekStuff">
-    <p class="geekData" ng-show="getGeekMode() && windSpeed && windDegrees">
+    <div class="geekData" ng-show="getGeekMode() && windSpeed && windDegrees">
+      <winddirection direction="{{windDegrees}}"></winddirection><br>
       Wind&nbsp;{{windDegrees}}&deg;&nbsp;{{windSpeed}}m/s
-      <winddirection direction="{{windDegrees}}"></winddirection>
-    </p>
-
-    <p class="geekData" ng-show="getGeekMode() && cloudiness">
+    </div>
+    <div class="geekData" ng-show="getGeekMode() && cloudiness">
+      <cloudcover percentage="{{cloudiness}}"></cloudcover><br>
       Cloud&nbsp;cover&nbsp;{{cloudiness}}%
-      <cloudcover percentage="{{cloudiness}}"></cloudcover>
-    </p>
+    </div>
   </section>
   
   <section class="forecasts">
