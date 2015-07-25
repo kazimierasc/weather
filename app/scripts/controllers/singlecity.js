@@ -16,6 +16,17 @@ angular.module('weatherApp')
     $scope.getGeekMode = prefferences.getGeekMode;
     $scope.UTCoffset = 0;
 
+    $scope.favoriteButtonValue = function() {
+        if(prefferences.isFavorite($scope.id)) {
+            return '★';
+        } else {
+            return '☆';
+        }
+    };
+    $scope.toggleFavoriteState = function() {
+        prefferences.toggleFavoriteState($scope.id);
+    };
+
     $scope.setHome = function() {
         var yes = function() {
             prefferences.setHome($scope.id);

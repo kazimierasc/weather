@@ -15,7 +15,8 @@ angular.module('weatherApp')
     var defaultPrefferences = {
       unit : 'C',
       geek : false,
-      home : false
+      home : false,
+      starred:{}
     };
   	var setCelsius = function() {
   		prefferences.unit = 'C';
@@ -53,6 +54,17 @@ angular.module('weatherApp')
         return false;
       }
     };
+    var toggleFavoriteState = function(id,name,country) {
+      if(prefferences.starred[id]) {
+        delete prefferences.starred[id];
+      } else {
+        prefferences.starred[id] = {name:name,country:country};
+      }
+      updateCookie();
+    };
+    var isFavorite = function(id) {
+      return !!prefferences.starred[id];
+    };
     var existingPrefferences = $cookies.getObject(cookieKey);
 
     if(existingPrefferences) {
@@ -72,6 +84,8 @@ angular.module('weatherApp')
       getGeekMode:getGeekMode,
       toggleGeekMode:toggleGeekMode,
   		setCelsius:setCelsius,
-  		setFarenheit:setFarenheit
+  		setFarenheit:setFarenheit,
+      toggleFavoriteState:toggleFavoriteState,
+      isFavorite:isFavorite
   	};
   }]);

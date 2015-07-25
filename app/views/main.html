@@ -18,7 +18,9 @@
     </p>
   </div>
   
-  <h2 class="locationName" ng-click="setHome()">{{name}}, {{country}}</h2>
+  <h2 class="locationName">{{name}}, {{country}}</h2>
+  <input type="button" value="Set as home" ng-click="setHome()"/>
+  <input type="button" value="{{favoriteButtonValue()}}" ng-click="toggleFavoriteState()"/>
   
   <section class="geekStuff">
     <div class="geekData" ng-show="getGeekMode() && windSpeed && windDegrees">
