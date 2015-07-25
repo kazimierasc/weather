@@ -15,6 +15,7 @@ angular.module('weatherApp')
       	function drawCanvas(direction) {
       		if(!isNaN(parseInt(direction))) {
       			var ctx = element[0].children[0].getContext('2d');
+      			ctx.clearRect(0, 0, 50, 50);
 		        var h = 50;
 		        var w = 50;
 		        var aw = 10;

@@ -8,9 +8,12 @@
  * Controller of the weatherApp
  */
 angular.module('weatherApp')
-  .controller('HeaderCtrl', function ($scope) {
+  .controller('HeaderCtrl', ['$scope','requestprocessor',function ($scope,requestprocessor) {
     $scope.visibility = false;
     $scope.toggleMenu = function() {
     	$scope.visibility = !$scope.visibility;
-    }
-  });
+    };
+    $scope.coordinatesSeek = function() {
+    	requestprocessor.deviceLocationLoad();
+    };
+  }]);

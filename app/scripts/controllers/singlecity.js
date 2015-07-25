@@ -8,16 +8,14 @@
  * Controller of the weatherApp
  */
 angular.module('weatherApp')
-  .controller('SinglecityCtrl', ['$scope','$resource','units','apiKey','prefferences','$routeParams','notice',function ($scope,$resource,units,apiKey,prefferences,$routeParams,notice) {
+  .controller('SinglecityCtrl', ['$scope','$resource','units','prefferences','$routeParams','notice','requestprocessor',function ($scope,$resource,units,prefferences,$routeParams,notice,requestprocessor) {
     // Set some basic defaults
     $scope.temperature = 0;
     $scope.forecast = [];
     $scope.getUnit = prefferences.getUnit;
     $scope.getGeekMode = prefferences.getGeekMode;
     $scope.UTCoffset = 0;
-    var parameters = {
-        APPID:apiKey
-    };
+
     $scope.setHome = function() {
         var yes = function() {
             prefferences.setHome($scope.id);
@@ -34,7 +32,6 @@ angular.module('weatherApp')
     // Create some useful resources
     var Weather = $resource('//api.openweathermap.org/data/2.5/weather');
     var Forecast = $resource('//api.openweathermap.org/data/2.5/forecast');
-    
 
     // The function serves as a callback for conditional
     // processors (like the nameLoad, defaultLoad etc.)
@@ -58,82 +55,30 @@ angular.module('weatherApp')
         // Case if the location name is specified in the URI
         if($routeParams.locationName) {
             $scope.name = $routeParams.locationName;
-            nameLoad(proceed);
+            requestprocessor.nameLoad($scope.name,proceed);
         }
         // Case if there are coordinates specified in the URI 
         else if($routeParams.lat && $routeParams.lon) {
             $scope.lat = $routeParams.lat;
             $scope.lon = $routeParams.lon;
-            coordinatesLoad(proceed);
+            requestprocessor.coordinatesLoad($scope.lat,$scope.lon,proceed);
         }
         // Case if the city ID from the openweathermap
         // database is specified in the URI
         else if($routeParams.id) {
             $scope.id = $routeParams.id;
-            idLoad(proceed);
+            requestprocessor.idLoad($scope.id,proceed);
         }
         // Default case
         else {
-            defaultLoad(proceed);
-        }
-    }
-
-    // Create functions that customize API call
-    // parameters depending on available data
-    function nameLoad(cb) {
-        parameters.q = $scope.name;
-        cb();
-    }
-
-    function coordinatesLoad(cb) {
-        parameters.lat = $scope.lat;
-        parameters.lon = $scope.lon;
-        cb();
-    }
-
-    function idLoad(cb) {
-        parameters.id = $scope.id;
-        cb();
-    }
-
-    function deviceLocationLoad(cb) {
-        console.log('called device location load');
-        function success(pos) {
-          var crd = pos.coords;
-          delete parameters.q;
-          delete parameters.id;
-          parameters.lat = crd.latitude;
-          parameters.lon = crd.longitude;
-          cb();
-        }
-        function error(err) {
-          console.warn('ERROR(' + err.code + '): ' + err.message);
-        }
-        var options = {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0
-        };
-        navigator.geolocation.getCurrentPosition(success, error, options);
-    }
-
-    function defaultLoad(cb) {
-        var home = prefferences.getHome();
-        if(home) {
-            parameters.id = home;
-            return cb();
-        } else {
-            deviceLocationLoad(cb);
-            parameters.id = '593116';
-            return cb();
+            requestprocessor.defaultLoad(proceed);
         }
     }
 
     // Retrieves the current weather data 
     // and populates the scope with it
     function getCurrentWeatherData(cb) {
-        console.log(parameters);
-        var weather = Weather.get(parameters, function() {
+        var weather = Weather.get(requestprocessor.parameters, function() {
             $scope.id = weather.id;
             $scope.temperature = weather.main.temp;
             $scope.lat = weather.coord.lat;
@@ -156,9 +101,12 @@ angular.module('weatherApp')
     // Retrieves the weather forecast data
     // and adds it to the scope
     function getForecastData() {
-        var forecast = Forecast.get(parameters, function() {
+        var forecast = Forecast.get(requestprocessor.parameters, function() {
             $scope.forecast = forecast.list;
         });
     }
+
+    // Does everything
     init();
+    
   }]);

@@ -1,6 +1,7 @@
 <section class="header" ng-controller="HeaderCtrl">
 	<section class="alwaysVisible">
 		<h1 id="mainTitle">Weather</h1>
+		<input class="headerButton" type="button" ng-click="coordinatesSeek()" value="Weather for my location"/>
 		<input id="hamburger" class="headerButton" type="button" ng-click="toggleMenu()" value="Options"/>
 	</section>
 	<section ng-controller="SearchCtrl" ng-show="visibility">
