@@ -61,6 +61,7 @@ h1,h2,h3 {
 .header .headerButton:hover,.header .locationButton:hover {
   background:white;
   color:#A4A2C7;
+  cursor: pointer;
 }
 .header .locationButton {
   padding:7px 20px 7px 20px;
@@ -119,11 +120,11 @@ h1,h2,h3 {
 .starredList img {
   width:30%;
   float:left;
-  background:rgba(0,0,0,0.4);
+  background:rgba(164,162,199,0.8);
 }
 .starredList img:hover {
   cursor:pointer;
-  background:rgba(0,0,0,0.8);
+  background:rgba(164,162,199,0.95);
 }
 .starredList .starredItem {
   float:right;
@@ -133,11 +134,11 @@ h1,h2,h3 {
   padding-top:10px;
   padding-bottom:10px;
   margin:0;
-  background:rgba(0,0,0,0.4);
+  background:rgba(164,162,199,0.8);
 }
 .starredList .starredItem:hover {
   cursor:pointer;
-  background:rgba(0,0,0,0.8);
+  background:rgba(164,162,199,0.95);
 }
 /* Weather Data Styles */
 .weatherData {
@@ -202,14 +203,23 @@ h1,h2,h3 {
 }
 
 @media (min-width:501px) {
-  .header .locationButton #verbalContent {
-    display:inline;
-  }
   .notice {
     padding-top:15%;
   }
   .notice input[type="button"] {
     min-width:25%;
+  }
+  .header .locationButton #verbalContent {
+    display:inline;
+  }
+  .starredList {
+    width:20%;
+    margin-right:-14%;
+    top:30%;
+  }
+  .starredList .starredItem {
+    padding-right:1%;
+    width:69%;
   }
   .weatherData .situation {
     float:left;
@@ -225,5 +235,12 @@ h1,h2,h3 {
   .geekStuff {
     width:70%;
     float:right;
+  }
+}
+
+@media (min-width:501px) and (max-height:500px) {
+  .starredList {
+    width:30%;
+    margin-right:-21%;
   }
 }
