@@ -16,7 +16,8 @@ angular.module('weatherApp')
           var ctx = element[0].children[0].getContext('2d');
           ctx.clearRect(0, 0, 50, 50);
       		if(!isNaN(parseInt(percentage))) {
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = 'rgb(54,54,54)';
+            ctx.strokeStyle = 'rgb(54,54,54)';
             ctx.beginPath();
             if(parseInt(percentage)>0) {
               ctx.moveTo(25,25);

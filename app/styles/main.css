@@ -165,36 +165,38 @@ h1,h2,h3 {
 	height: 200px;
 	background:blue;
 }
-.cityButton {
-  background:none;
-  border:2px solid rgb(131,191,23);
-  outline:none;
-  padding:7px 20px 7px 20px;
-  font-size:0.6em;
-  font-weight:400;
-}
-.cityButton:hover {
-  background:rgb(131,191,23);
-  color:white;
-}
 .geekData {
 	font-size:0.8em;
 }
 .geekStuff {
   width:100%;
+  margin-top:10px;
+}
+.cityButton {
+  background:none;
+  border:2px solid rgb(131,191,23);
+  outline:none;
+  height:50px;
+  padding:7px 20px 7px 20px;
+}
+.cityButton:hover {
+  background:rgb(131,191,23);
+  color:white;
+}
+.cityButton.active {
+  background:rgb(131,191,23);
+  color:white;
 }
 .geekStuff div.geekData {
   width:50%;
+  margin-top:30px;
+  margin-bottom:20px;
   float:left;
-  margin-top:10px;
-  margin-bottom:10px;
 }
 .forecasts {
   clear:both;
 }
 .forecasts h3 {
-  /*border-bottom:2px solid rgb(164,162,199);
-  width:80%;*/
   margin-left:auto;
   margin-right:auto;
   margin-top:20px;
@@ -225,7 +227,7 @@ h1,h2,h3 {
   }
 }
 
-@media (min-width:501px) {
+@media (min-width:900px) {
   .notice {
     padding-top:15%;
   }
@@ -263,6 +265,11 @@ h1,h2,h3 {
     width:70%;
     float:right;
   }
+  .forecasts table {
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
+  } 
 }
 
 @media (min-width:501px) and (max-height:500px) {

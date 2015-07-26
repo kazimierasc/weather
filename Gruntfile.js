@@ -335,8 +335,9 @@ module.exports = function (grunt) {
       ],
       dist: [
         'copy:styles',
-        'imagemin',
-        'svgmin'
+        'imagemin'
+        //Removed SVGmin, cause it clashes with dynamic name generation
+        //'svgmin'
       ]
     },
 

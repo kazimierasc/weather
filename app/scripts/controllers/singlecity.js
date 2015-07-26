@@ -16,6 +16,13 @@ angular.module('weatherApp')
     $scope.getGeekMode = prefferences.getGeekMode;
     $scope.UTCoffset = 0;
 
+    $scope.homeButtonValue = function() {
+        if(prefferences.getHome() === $scope.id) {
+            return 'Home location';
+        } else {
+            return 'Set as home';
+        }
+    };
     $scope.favoriteButtonValue = function() {
         if(prefferences.isFavorite($scope.id)) {
             return '★';
@@ -23,22 +30,48 @@ angular.module('weatherApp')
             return '☆';
         }
     };
+    $scope.homeButtonClass = function() {
+        if(prefferences.getHome() === $scope.id) {
+            return 'active';
+        } else {
+            return '';
+        }
+    };
+    $scope.favoriteButtonClass = function() {
+        if(prefferences.isFavorite($scope.id)) {
+            return 'active';
+        } else {
+            return '';
+        }
+    };
     $scope.toggleFavoriteState = function() {
         prefferences.toggleFavoriteState($scope.id,$scope.name,$scope.country);
     };
 
     $scope.setHome = function() {
-        var yes = function() {
-            prefferences.setHome($scope.id);
-            notice.close();
-        };
         var no = function() {
             notice.close();
         };
-        notice.title = 'Do you want to set '+$scope.name+' as the default location?';
-        notice.description = 'This means that whenever you load this page '+$scope.name+' will be the one you see.';
-        notice.actions = [{name:'Yes',action:yes},{name:'No',action:no}];
-        notice.visible = true;
+        if(prefferences.getHome() !== $scope.id) {
+            var yes = function() {
+                prefferences.setHome($scope.id);
+                notice.close();
+            };
+            notice.title = 'Do you want to set '+$scope.name+' as the default location?';
+            notice.description = 'This means that whenever you visit this page '+$scope.name+' will be the one you see.';
+            notice.actions = [{name:'Yes',action:yes},{name:'No',action:no}];
+            notice.visible = true;
+        } else {
+            var yes = function() {
+                prefferences.setHome(false);
+                notice.close();
+            };
+            notice.title = 'Do you want for '+$scope.name+' to no longer be your home location?';
+            notice.description = 'This means that we will load weather for your coodinates or a default location, whenever you visit this page.';
+            notice.actions = [{name:'Yes',action:yes},{name:'No',action:no}];
+            notice.visible = true;
+        }
+        
     };
     // Create some useful resources
     var Weather = $resource('//api.openweathermap.org/data/2.5/weather');
